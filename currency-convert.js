@@ -11,6 +11,10 @@ const axios = require('axios');
 //     });
 // };
 
+// getExchangeRate('USD','CAD').then((rate) => {
+//   console.log(rate);
+// });
+
 const getExchangeRate = async (from, to) => {
 
       const response = await axios.get('http://data.fixer.io/api/latest?access_key=32b4d5d86a599a032368ed7d1aa727e6&format=1');
@@ -19,9 +23,6 @@ const getExchangeRate = async (from, to) => {
       return rate;
 };
 
-getExchangeRate('USD','CAD').then((rate) => {
-  console.log(rate);
-});
 
 // const getCountries = (currency) => {
 //   return axios.get(`https://restcountries.eu/rest/v2/currency/${currency}`).then((response) => {
@@ -29,11 +30,33 @@ getExchangeRate('USD','CAD').then((rate) => {
 //   })
 // };
 
+// getCountries('INR').then((countries) => {
+//   console.log(countries);
+// });
+
 const getCountries = async (currency) => {
     const response = await axios.get(`https://restcountries.eu/rest/v2/currency/${currency}`);
     return response.data.map((country) => country.name);
 };
 
-getCountries('INR').then((countries) => {
-  console.log(countries);
+// const convertCurrency = (from, to, amt) => {
+//     let convertedAmount;
+//     return getExchangeRate(from,to).then((rate) => {
+//       convertedAmount = (rate * amt).toFixed(2);
+//     return getCountries(to);
+//   }).then((countries) => {
+//     return `${amt} ${from} is worth ${convertedAmount} ${to}. You may use them in following countries : ${countries.join(', ')}`;
+//   })
+// };
+
+const convertCurrency = async (from, to, amt) => {
+  const rate = await getExchangeRate(from, to);
+  const countries =   await getCountries(to);
+  convertedAmount = (rate * amt).toFixed(2);
+  return `${amt} ${from} is worth ${convertedAmount} ${to}. You may use them in following countries : ${countries.join(', ')}`;
+};
+
+
+convertCurrency('INR', 'INR', 69).then((msg) => {
+  console.log(msg);
 });
