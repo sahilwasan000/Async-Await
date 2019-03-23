@@ -1,5 +1,5 @@
-//fixer.io -> Api that lets you get a real time currency exchange values.
-// http://restcountries.eu -> Api that lets you know where a particular currency is valid.
+//fixer.io -> Api that lets you get a real time currency exchange values
+// http://restcountries.eu -> Api that lets you know where a particular currency is valid
 
 const axios = require('axios');
 
